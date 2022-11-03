@@ -1,0 +1,5 @@
+-0.005369502971830972
+Median difference of decision tree: 0.015632976817442978
+Accuracy decision tree: 85.26826546243139 %
+Standard Deviation decision tree: 0.637012919850775 %
+sd=0.16

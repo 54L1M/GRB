@@ -1,0 +1,10 @@
+#### Decision Tree KFold
+Median difference of decision tree: 0.016714307618030874
+Accuracy decision tree: 67.96635582553924 %
+Standard Deviation decision tree: 1.6640843478430694 %
+
+
+#### Random Forest KFold
+Accuracy: 81.01493703580023 %
+Standard Deviation: 0.6999980481315432 %
+Median difference: 0.017728428183063225

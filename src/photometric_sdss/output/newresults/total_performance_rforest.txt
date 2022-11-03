@@ -1,0 +1,5 @@
+-0.013159694121965833
+-0.013159694121965833
+Median difference of random forest: 0.016489495474857296
+81.02 best accuracy
+standard deviation: 0.23

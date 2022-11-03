@@ -1,0 +1,441 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+% \usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{booktabs}% http://ctan.org/pkg/booktabs
+\usepackage{caption}
+\usepackage{copyrightbox}
+
+\makeatletter
+\renewcommand{\CRB@setcopyrightfont}{%
+\usefont{T1}{phv}{m}{n}\fontsize{4}{4}\selectfont
+}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Photometric Redshifts]{Estimating the Photometric Redshifts of Galaxies Using Regression Techniques} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author[Momtaz, Salimi, Shakeri]{ A. Momtaz, M. H. Salimi, S.Shakeri}
+%\rel{ Supervised by: P. Sahebsara, PhD.} % Your name
+\institute[IUT] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Department of Physics, Isfahan University of Technology, Isfahan 84156-8311, Iran. \\ % Your institution for the title page
+\medskip
+\textit{aidinmomtaz@ph.iut.ac.ir\\mhsalimi@ph.iut.ac.ir\\s.shakeri@iut.ac.ir} % Your email address
+}
+\date{MG-16, July 7, 2021} % Date, can be changed to a custom date
+\setbeamertemplate{caption}[numbered]
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+%---------------------
+
+%-----------------------
+
+\begin{frame}
+\frametitle{Overview} % Table of contents slide, comment this block out to remove it
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%   Introduction
+%----------------------------------------------------------------------------------------
+\section{Introduction}
+\subsection{Motivation}
+\begin{frame}
+ 	\frametitle{Astronomical Surveys, SDSS}
+    \begin{columns}[onlytextwidth]
+    \begin{column}{.45\textwidth}
+        \begin{figure}
+            \copyrightbox[r]{\includegraphics[width=\textwidth]{img/SDSS_telescope.jpg}}{https://www.sdss.org/science/}
+            \caption*{SDSS Telescope}
+        \end{figure}
+    \end{column}
+    \hfill
+    \begin{column}{.45\textwidth}
+    \begin{itemize}
+        \item Galactic Archaeology
+        \item Gas in the Galaxy
+        \item Star Forming Regions
+        \item Multi-Star and Planetary Systems
+        \item White Dwarfs
+    \end{itemize}
+    \end{column}
+    \end{columns}
+    \end{frame}
+\begin{frame}
+ 	\frametitle{SDSS Data Release}
+    \begin{columns}[onlytextwidth]
+    \begin{column}{.45\textwidth}
+        \begin{figure}
+            \copyrightbox[r]{\includegraphics[width=\textwidth]{img/sdss_galaxy_map.jpg}}{https://www.sdss.org/science/}
+            \caption*{SDSS Galaxy Mapping}
+        \end{figure}
+   \end{column}
+    \hfill
+    \begin{column}{.45\textwidth}
+    \begin{itemize}
+        \item Data Release 16 (August 2018)
+        \item Infrared spectra
+        \item Extragalactic spectra
+        \item Integral field spectra for nearby galaxies
+        \item Useful spectra: 4,846,156
+        \item Galaxies: 2,863,635, QSO: 960,678
+    \end{itemize}
+    \end{column}
+    \end{columns}
+    \end{frame}
+\subsection{Spectroscopic and Photometric Redshifts}
+\begin{frame}
+	\frametitle{Measuring Redshift from Spectroscopy}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.35]{img/Spectrum.png}}{\href{https://www.shelyak.com/how-to-measure-the-redshift-of-a-galaxy/?lang=en}{shelyak.com}}
+    \end{figure}
+    \begin{equation}
+        \lambda_{obs} = (1+z)\lambda_{em}
+    \end{equation}
+    \end{frame}
+\begin{frame}
+	\frametitle{Redshift and Blueshift}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.30]{img/redshift-blueshift.png}}{Coursera, Data-driven Astronomy}
+    \end{figure}
+
+    \end{frame}
+\begin{frame}
+    \begin{figure}
+	\frametitle{Measuring Redshift from Photometry}
+    \copyrightbox[r]{\includegraphics[scale=0.25]{img/sdss_plot.png}}{Coursera, Data-driven Astronomy}
+    \end{figure}
+    \begin{equation}
+        u=m_{\text {ref }}-2.5 \log {10}\left[\int_{0}^{\infty} F(\lambda) S(\lambda) d \lambda\right]
+    \end{equation}
+    \end{frame}
+\subsection{Machine Learning}
+\begin{frame}
+	\frametitle{Regression Algorithms}
+    \begin{description}
+        \item[Decision Tree] \hfill \\ Decision trees map a set of input features to their corresponding output targets. This is done through a series of individual decisions where each decision represents a node (or branching) of the tree.
+        \\[0.2in]
+        \pause
+        \item[Random Forest] \hfill \\ Random forests are an ensemble learning method for classification, regression and other tasks that operates by constructing a multitude of decision trees at training time.
+    \end{description}
+    \end{frame}
+\begin{frame}
+	\frametitle{How does Decision Tree work?}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.17]{img/decision_tree2.png}}{Coursera, Data-driven Astronomy}
+        \caption*{Schematic View of Decision Tree}
+    \end{figure}
+    \end{frame}
+
+\begin{frame}
+	\frametitle{How does Random Forest work?}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.15]{img/Random_Forest.png}}{Chris Albon}
+        \caption*{Schematic View of Random Forest}
+    \end{figure}
+    \end{frame}
+\begin{frame}
+	\frametitle{Geometrical View of  Algorithm}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.35]{img/decision_tree_intuition.png}}{Udemy-Machine Learning A-Z}
+        \caption*{Desicion Tree Intuition}
+    \end{figure}
+    \end{frame}
+%----------------------------------------------------------------------------------------
+%   Literature Survey
+%----------------------------------------------------------------------------------------
+\section{Literature Survey}
+\begin{frame}
+        \frametitle{ANN}
+        \begin{figure}
+            \copyrightbox[r]{\includegraphics[scale=0.3]{img/lit_survay.png}}{Firth et al. Mon. Not. R. Astron. Soc. 339,(2003)}
+            \caption*{ugriz Photometry}
+        \end{figure}
+        \begin{itemize}
+            \item Sample Size: 20000 Galaxies
+            \item Testing Set: 7000 Galaxies
+        \end{itemize}
+        \end{frame}
+
+\begin{frame}
+        \frametitle{Similar Research Results}
+        \begin{figure}
+\vspace*{3mm}
+            \includegraphics[scale=0.35]{img/table.png}
+\vspace*{-5mm}
+\begin{equation}
+    \overline{\Delta Z}_{\text {norm}}=\frac{Z_{\text {spec}}-Z_{phot}}{1+Z_{\text {spec}}}
+\end{equation}
+           % \caption*{Overview of Similar Researches}
+        \end{figure}
+
+        \end{frame}
+%----------------------------------------------------------------------------------------
+%   Methodology
+%----------------------------------------------------------------------------------------
+\section{Methodology}
+\subsection{Data Preprocessing}
+
+\begin{frame}
+	\frametitle{Preparing the Dataset}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.2]{img/SDSS_imaging_camera.jpg}}{\href{https://www.sdss.org/instruments/}{https://www.sdss.org/instruments/}}
+        \includegraphics[scale=0.5]{img/wavelengths.png}
+        \includegraphics[scale=0.3]{img/sdss_data.png}
+        \caption*{SDSS Data Sample}
+    \end{figure}
+    \end{frame}
+\begin{frame}
+	\frametitle{Contour map of the redshifts}
+    \begin{figure}
+        \copyrightbox[r]{ \includegraphics[scale=0.70]{img/Contourmap.png}}{}
+        % \caption*{SDSS Data Sample}
+    \end{figure}
+    \end{frame}
+\begin{frame}
+	\frametitle{Redshift Distribution of Galaxies}
+    \begin{figure}
+        \copyrightbox[r]{ \includegraphics[scale=0.71]{img/Gal_distr.png}}{}
+
+        % \caption*{SDSS Data Sample}
+    \end{figure}
+    \end{frame}
+
+\subsection{Desicion Tree Algorithm}
+\begin{frame}
+	\frametitle{Detailed overview of Decision Tree}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.25]{img/decision_tree.png}}{Coursera, Data-driven Astronomy}
+
+        %\caption*{Exploring the Output Tree}
+    \end{figure}
+    \end{frame}
+
+
+\begin{frame}
+	\frametitle{Optimizing process for Decision Tree}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.4]{img/overfiting_tree.png}}{}
+        \caption*{Setting a Maximum Depth}
+    \end{figure}
+    \end{frame}
+\begin{frame}
+	\frametitle{Accuracy of the model}
+    \begin{table}[ht]\
+        \caption*{The Effect of Training Set Size} % title of Table
+        \centering % used for centering table
+        \begin{tabular}{c c c c} % centered columns (4 columns)
+        \hline\hline %inserts double horizontal lines
+        Training Galaxies & Median Diff \\ [0.5ex] % inserts table
+        %heading
+        \hline % inserts single horizontal line
+        50 & 0.048  \\ % inserting body of the table
+        500 & 0.026  \\
+        5000 & 0.023  \\
+        50000 & 0.022  \\  % [1ex] adds vertical space
+        400000 & 0.017 \\[1ex]
+        \hline %inserts single line
+        \\
+        \end{tabular}
+        \label{table:nonlin} % is used to refer this table in the text
+        \end{table}
+        \begin{equation}
+            m e d_{-} d i f f=\operatorname{median}\left(\left|Y_{\mathrm{i}, \text { pred }}-Y_{\mathrm{i}, \mathrm{act}}\right|\right)
+            \end{equation}
+    \end{frame}
+\begin{frame}
+	\frametitle{Final Result of Decision Tree Algorithm}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.6]{img/Tree_Result.png}}{}
+
+        %\caption*{KFold Cross Validated Predictions}
+    \end{figure}
+    \end{frame}
+\subsection{Random Forest Algorithm}
+\begin{frame}
+	\frametitle{Steps of preparing Random Forest}
+    \begin{figure}
+        \copyrightbox[b]{\includegraphics[scale=0.36]{img/Random_Forest_schematic.png}}{}
+    \end{figure}
+    \end{frame}
+
+\begin{frame}
+	\frametitle{Final Result of Random Forest Algorithm}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.6]{img/Forest_Result.png}}{}
+
+       % \caption*{KFold Cross Validated Predictions}
+    \end{figure}
+    \end{frame}
+
+\begin{frame}
+	\frametitle{Optimization process}
+    \begin{figure}
+        \copyrightbox[r]{\includegraphics[scale=0.60]{img/max_depth_dt.png}}{}
+
+        % \caption*{KFold Cross Validated Predictions}
+    \end{figure}
+    \end{frame}
+\section{Results and Discussion}
+
+\begin{frame}
+	\frametitle{Analytical Overview}
+    \begin{table}[ht]\
+        \caption*{Parameters of Regression Modeling} % title of Table
+        \centering % used for centering table
+        \begin{tabular}{l l l} % centered columns (4 columns)
+        \hline\hline %inserts double horizontal lines
+         &Decision Tree & Random Forest\\ [0.5ex] % inserts table
+        %heading
+        \hline % inserts single horizontal line
+        Mean Accuracy& 67.96\%  & 81.01\%  \\ % inserting body of the table
+        Best Accuracy & 68.07\% & 81.02\%  \\
+        Max Depth & 19 & 25  \\
+        Number of Trees &  1 & 600  \\
+        Bootstrap &  - & True  \\
+        Standard Deviation &   1.66\% & 0.69\%  \\
+        R2 Squared &  0.68 & 0.81  \\
+        Median Diff &  0.017 & 0.016  \\ % [1ex] adds vertical space
+        $\overline{\Delta Z}_{\text {norm}}$ &  0.016 & 0.001  \\ [1ex] % [1ex] adds vertical space
+        \hline %inserts single line
+        \\
+        \end{tabular}
+        \end{table}
+        \end{frame}
+\begin{frame}
+        \frametitle{Comparison}
+        \begin{figure}
+
+            \includegraphics[scale=0.37]{img/table2.png}
+
+
+           % \caption*{Overview of Similar Researches}
+        \end{figure}
+
+        \end{frame}
+%----------------------------------------------------------------------------------------
+%   Results & Disscusion
+%----------------------------------------------------------------------------------------
+
+\section{References}
+\begin{frame}
+\frametitle{References}
+\footnotesize{
+\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+\bibitem[Firth, 2002]{p1} Andrew E. Firth, Ofer Lahav and Rachel S. Somerville
+\newblock Estimating photometric redshifts with artificial neural networks
+\newblock \emph{Mon. Not. R. Astron. Soc. 339, 1195–1202}, 2003
+\bibitem[Beck, 2016]{p2} Beck et al.
+\newblock Photometric redshifts for the SDSS Data Release 12
+\newblock \emph{MNRAS 460, 1371–1381}, 2016
+\bibitem[Baldeschi et al., 2021]{p3} Baldeschi et al.
+\newblock Photometric redshift estimation of galaxies in the Pan-STARRS
+\newblock \emph{Draft version, submitted to APJ}, 2021
+\bibitem[Paul et al., 2018]{p3} Nicholas Paul, Nicholas Virag and Lior Shamir
+\newblock A catalog of photometric redshift and the distribution of broad galaxy morphologies
+\newblock \emph{Galaxies, MDPI}, 2018
+\end{thebibliography}
+}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+\begin{frame}
+\Huge{\centerline{Thanks For Your Attention :)}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+\end{document}
+
+
+
+
+% Mean Accuracy & Best Accuracy & Max Depth & Number of Trees & Bootstrap & Standard Deviation & R2 Squared & Median Diff
